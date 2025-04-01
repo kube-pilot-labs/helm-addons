@@ -1,0 +1,47 @@
+controller:
+  image:
+    registry: registry.k8s.io
+    image: ingress-nginx/controller
+    tag: "v1.11.3"
+
+  service:
+    type: ClusterIP
+    externalIPs:
+      - 192.168.56.30
+
+  ingressClassResource:
+    name: nginx
+    enabled: true
+    default: true
+    controllerValue: "k8s.io/ingress-nginx"
+  ingressClass: nginx
+
+  extraEnvs:
+    - name: TZ
+      value: Asia/Seoul
+
+  replicaCount: 1
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
+  nodeSelector:
+    kubernetes.io/hostname: k8s-master
+
+  tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
+      effect: "NoSchedule"
+
+#  metrics:
+#    enabled: true
+#    serviceMonitor:
+#      enabled: true
+#      namespace: monitoring
+#      additionalLabels:
+#        release: monitoring
