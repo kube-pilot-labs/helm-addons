@@ -31,7 +31,7 @@ controller:
       memory: 128Mi
 
   nodeSelector:
-    kubernetes.io/hostname: k8s-master
+    kubernetes.io/hostname: k8s-2503
 
   tolerations:
     - key: "node-role.kubernetes.io/control-plane"
